@@ -1,1 +1,1 @@
-Infrastructure in AWS for creating applications
+Terraform code for infrastructure in AWS 
