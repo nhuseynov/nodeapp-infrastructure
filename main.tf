@@ -12,7 +12,7 @@ terraform {
 
 resource "aws_key_pair" "gitlab_runner_key" {
   key_name   = "gitlab_runner_key"
-  public_key = file("$SSH_TO_AWS_EC2_INSTANCES")
+  public_key = file("id_rsa.pub")
 }
 
 resource "aws_security_group" "ssg" {
