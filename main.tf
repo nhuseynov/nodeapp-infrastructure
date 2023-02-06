@@ -12,7 +12,7 @@ terraform {
 
 resource "aws_key_pair" "gitlab_runner_key" {
   key_name   = "gitlab_runner_key"
-  public_key = file("id_rsa.pub")
+  public_key = file("$SSH_TO_AWS_EC2_INSTANCES")
 }
 
 resource "aws_security_group" "ssg" {
@@ -87,7 +87,7 @@ resource "aws_instance" "deploy-server" {
   vpc_security_group_ids = [aws_security_group.ssg.id]
 
   tags = {
-    Name = "dev-server"
+    Name = "deploy-server"
   }
   user_data = <<-EOF
     #!/bin/bash
@@ -106,7 +106,7 @@ output "public_ip_of_gitlab_runner" {
 }
 
 output "public_ip_of_dev_server" {
-  value = aws_instance.dev-server.public_ip
+  value = aws_instance.deploy-server.public_ip
 }
 
 output "sg_id" {
